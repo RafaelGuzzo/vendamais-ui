@@ -18,7 +18,7 @@
   <div class="container-fluid">
     <div class="card">
 
-      <form>
+      <form [formGroup]="pedidoForm">
         <div class="row">
           <div class="col-md-7">
             <div class="card-header">
@@ -39,11 +39,11 @@
               <div class="row">
                 <div class="form-group col-md-7">
                   <label for="inputCNPJ">CNPJ</label>
-                  <input type="text" class="form-control" id="inputCNPJ">
+                  <input type="text" class="form-control" id="inputCNPJ" mask="00.000.000/0000-00">
                 </div>
                 <div class="form-group col-md-5">
                   <label for="inputTelefone">Telefone</label>
-                  <input type="text" class="form-control" id="inputTelefone">
+                  <input type="text" class="form-control" id="inputTelefone" mask="(00) 0 0000-0000">
                 </div>
               </div>
               <div class="row">
@@ -53,7 +53,15 @@
                 </div>
                 <div class="form-group col-md-12">
                   <label for="inputEmail">Email</label>
-                  <input type="email" class="form-control" id="inputEmail">
+                  <input
+                    [class.is-invalid]="pedidoForm.get('inputEmail').invalid && pedidoForm.get('inputEmail').touched"
+                    type="email" class="form-control"  id="inputEmail" formControlName="inputEmail" />
+
+                    <div *ngIf="(pedidoForm.get('inputEmail').invalid && pedidoForm.get('inputEmail').touched) || pedidoForm.get('inputEmail').dirty">
+                      <small *ngIf="pedidoForm.get('inputEmail').errors?.required" class="text-danger">Email é obrigatório</small>
+                      <!--question mark(?) is a safe navigation operator-->
+                      <small *ngIf="pedidoForm.get('inputEmail').errors?.pattern" class="text-danger">Por favor insira um email válido</small>
+                    </div>
                 </div>
               </div>
             </div>
@@ -67,13 +75,14 @@
               <p>Situação: {{ resumo.situacao}}</p>
               <p>Quantidade de produtos: {{ resumo.qtdProdutos}}</p>
               <p>Quantidade de itens: {{ resumo.qtdItens}}</p>
-              <p>Total do pedido: {{ resumo.totalPedido}}</p>
+              <p>Total do pedido: R$ {{ resumo.totalPedido | mask: 'separator':'.'}}</p>
             </div>
           </div>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-          <button type="button" class="btn btn-primary" #openmodalbutton data-toggle="modal" data-target="#modal-lg">Adicionar
+          <button type="button" class="btn btn-primary" #openmodalbutton data-toggle="modal"
+            data-target="#modal-lg">Adicionar
             produto</button>
         </div>
 
@@ -89,28 +98,35 @@
                 </div>
                 <div class="modal-body">
                   <div class="row" hidden>
-                    <input type="text" id="idpedidoproduto"  name="idpedidoproduto" [(ngModel)]="produto.idpedidoproduto">
+                    <input type="text" id="idpedidoproduto" name="idpedidoproduto"
+                      [(ngModel)]="produto.idpedidoproduto">
                     <input type="text" id="produtoId" name="produtoId" [(ngModel)]="produto.produtoId">
                   </div>
                   <div class="row">
                     <div class="form-group col-md-4">
                       <label for="inputCodigo">Codigo</label>
-                      <input type="text" class="form-control" id="inputCodigo" name="inputCodigo" [(ngModel)]="produto.produtoCodigo">
+                      <input type="text" class="form-control" id="inputCodigo" name="inputCodigo"
+                        [(ngModel)]="produto.produtoCodigo">
                     </div>
                     <div class="form-group col-md-8">
                       <label for="inputProduto">Produto</label>
-                      <input type="text" class="form-control" id="inputProduto" name="inputProduto" [(ngModel)]="produto.produtoDescricao">
+                      <input type="text" class="form-control" id="inputProduto" name="inputProduto"
+                        [(ngModel)]="produto.produtoDescricao">
                     </div>
                   </div>
                   <div class="row">
                     <div class="form-group col-md-4">
                       <label for="inputPreco">Preço</label>
-                      <input type="text" class="form-control" id="inputPreco" name="inputPreco" [(ngModel)]="produto.produtoPreco">
+                      <input type="text" class="form-control" id="inputPreco" name="inputPreco"
+                        [(ngModel)]="produto.produtoPreco" [allowNegativeNumbers]="false" prefix="R$ "
+                        mask="separator.2" thousandSeparator=".">
                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputQuantidade">Quantidade</label>
-                      <input type="number" class="form-control" id="inputQuantidade" name="inputQuantidade" [(ngModel)]="produto.quantidade">
-                      <input type="number"  id="inputtotalProduto" name="inputtotalProduto" [(ngModel)]="produto.totalProduto" hidden>
+                      <input type="number" class="form-control" id="inputQuantidade" name="inputQuantidade"
+                        [(ngModel)]="produto.quantidade" min="0">
+                      <input type="number" id="inputtotalProduto" name="inputtotalProduto"
+                        [(ngModel)]="produto.totalProduto" hidden>
                     </div>
                   </div>
                 </div>
@@ -147,12 +163,14 @@
                   <tr *ngFor="let produto of produtos; let i = index">
                     <td>{{produto.produtoDescricao}}</td>
                     <td>{{produto.quantidade}}</td>
-                    <td>{{produto.produtoPreco}}</td>
-                    <td>{{produto.totalProduto}}</td>
+                    <td>R$ {{produto.produtoPreco | mask: 'separator':'.'}}</td>
+                    <td>R$ {{produto.totalProduto | mask: 'separator':'.'}}</td>
                     <td class="justify-content-between">
 
-                      <button type="button" class="btn btn-default" (click)="editaPedidoProduto(i)"><i class="fas fa-pencil-alt"></i></button>
-                      <button type="button" class="btn btn-default" (click)="delete(i)"><i class="fas fa-trash-alt"></i></button>
+                      <button type="button" class="btn btn-default" (click)="editaPedidoProduto(i)"><i
+                          class="fas fa-pencil-alt"></i></button>
+                      <button type="button" class="btn btn-default" (click)="delete(i)"><i
+                          class="fas fa-trash-alt"></i></button>
 
                     </td>
                   </tr>

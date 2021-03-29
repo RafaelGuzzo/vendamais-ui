@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm,FormGroup, FormControl, Validators } from '@angular/forms';
 import { PedidoProduto } from '../models/pedido-produto';
 import { Resumo } from '../models/resumo';
 
@@ -16,6 +16,12 @@ export class PedidoNovoComponent implements OnInit {
   resumo = new Resumo();
   editaProduto = false;
   indiceProduto = null;
+
+  pedidoForm = new FormGroup({
+    inputEmail: new FormControl('',[
+        Validators.required,
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")])
+    }); 
 
   constructor() { }
 
