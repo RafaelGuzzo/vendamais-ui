@@ -1,0 +1,169 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>General Form</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">General Form</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="card">
+
+      <form>
+        <div class="row">
+          <div class="col-md-7">
+            <div class="card-header">
+              <h3 class="card-title">Cabeçalho</h3>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label>Número</label>
+                  <input type="number" class="form-control" value="1000" disabled>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Data</label>
+                  <input type="date" class="form-control" value="2021-03-10" disabled>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="form-group col-md-7">
+                  <label for="inputCNPJ">CNPJ</label>
+                  <input type="text" class="form-control" id="inputCNPJ">
+                </div>
+                <div class="form-group col-md-5">
+                  <label for="inputTelefone">Telefone</label>
+                  <input type="text" class="form-control" id="inputTelefone">
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label for="inputRazao">Razão Social</label>
+                  <input type="text" class="form-control" id="inputRazao">
+                </div>
+                <div class="form-group col-md-12">
+                  <label for="inputEmail">Email</label>
+                  <input type="email" class="form-control" id="inputEmail">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5" style="border-left: solid 3px">
+            <div class="card-header">
+              <h3 class="card-title">Resumo</h3>
+            </div>
+            <div class="card-body">
+              <p>Usuário: {{resumo.usuario}}</p>
+              <p>Situação: {{ resumo.situacao}}</p>
+              <p>Quantidade de produtos: {{ resumo.qtdProdutos}}</p>
+              <p>Quantidade de itens: {{ resumo.qtdItens}}</p>
+              <p>Total do pedido: {{ resumo.totalPedido}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+          <button type="button" class="btn btn-primary" #openmodalbutton data-toggle="modal" data-target="#modal-lg">Adicionar
+            produto</button>
+        </div>
+
+        <div class="modal fade" id="modal-lg">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <form #produtoForm="ngForm" (ngSubmit)="submitFormProduto(produtoForm)">
+                <div class="modal-header">
+                  <h4 class="modal-title">Adicionar produto</h4>
+                  <button type="button" class="close" data-dismiss="modal" #closemodalbutton aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row" hidden>
+                    <input type="text" id="idpedidoproduto"  name="idpedidoproduto" [(ngModel)]="produto.idpedidoproduto">
+                    <input type="text" id="produtoId" name="produtoId" [(ngModel)]="produto.produtoId">
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-4">
+                      <label for="inputCodigo">Codigo</label>
+                      <input type="text" class="form-control" id="inputCodigo" name="inputCodigo" [(ngModel)]="produto.produtoCodigo">
+                    </div>
+                    <div class="form-group col-md-8">
+                      <label for="inputProduto">Produto</label>
+                      <input type="text" class="form-control" id="inputProduto" name="inputProduto" [(ngModel)]="produto.produtoDescricao">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-4">
+                      <label for="inputPreco">Preço</label>
+                      <input type="text" class="form-control" id="inputPreco" name="inputPreco" [(ngModel)]="produto.produtoPreco">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputQuantidade">Quantidade</label>
+                      <input type="number" class="form-control" id="inputQuantidade" name="inputQuantidade" [(ngModel)]="produto.quantidade">
+                      <input type="number"  id="inputtotalProduto" name="inputtotalProduto" [(ngModel)]="produto.totalProduto" hidden>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-primary">Confirmar</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+
+
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Listagem de produtos</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+              <table class="table table-head-fixed text-nowrap">
+                <thead>
+                  <tr>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                    <th>Total</th>
+                    <th>Ação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let produto of produtos; let i = index">
+                    <td>{{produto.produtoDescricao}}</td>
+                    <td>{{produto.quantidade}}</td>
+                    <td>{{produto.produtoPreco}}</td>
+                    <td>{{produto.totalProduto}}</td>
+                    <td class="justify-content-between">
+
+                      <button type="button" class="btn btn-default" (click)="editaPedidoProduto(i)"><i class="fas fa-pencil-alt"></i></button>
+                      <button type="button" class="btn btn-default" (click)="delete(i)"><i class="fas fa-trash-alt"></i></button>
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

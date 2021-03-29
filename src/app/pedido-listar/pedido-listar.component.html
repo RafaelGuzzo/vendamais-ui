@@ -1,0 +1,57 @@
+<section class="content-header">
+    <div class="container-fluid">
+       <div class="row mb-2">
+          <div class="col-sm-6">
+             <h1>DataTables</h1>
+          </div>
+          <div class="col-sm-6">
+             <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">DataTables</li>
+             </ol>
+          </div>
+       </div>
+    </div>
+    <!-- /.container-fluid -->
+ </section>
+<!-- main app container -->
+<div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Listagem de pedidos</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body table-responsive p-0">
+      <table class="table table-hover text-nowrap">
+        <thead>
+          <tr>
+            <th>Número</th>
+            <th>Data</th>
+            <th>Situação</th>
+            <th>Razão social</th>
+            <th>CNPJ</th>
+            <th>Quantidade de produtos</th>
+            <th>Quantidade de itens</th>
+            <th>Total do pedido</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of pageOfItems">
+           <td>{{item.numero}}</td>
+           <td>{{item.data}}</td>
+           <td>{{item.situacao}}</td>
+           <td>{{item.razao}}</td>
+           <td>{{item.cnpj}}</td>
+           <td>{{item.qtdProdutos}}</td>
+           <td>{{item.qtdItens}}</td>
+           <td>{{item.total}}</td>
+           <td>{{item.id}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer pb-0 pt-3">
+        <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
+    </div>
+  </div>
