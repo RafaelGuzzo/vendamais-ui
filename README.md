@@ -16,7 +16,9 @@ npm i -g @angular/cli@10.0.0-next.0
 ```
 npm install
 ```
-> se em algum momento aconteccer o erro: `The Angular Compiler requires TypeScript >=3.4.0 and <3.5.0 but 3.5.3 was found instead` executar o comando
+> se em algum momento aconteccer o erro: 
+>`The Angular Compiler requires TypeScript >=3.4.0 and <3.5.0 but 3.5.3 was found instead` 
+> executar o comando:
 ```
 npm i -D typescript@3.9.5
 ```
@@ -24,10 +26,12 @@ npm i -D typescript@3.9.5
 ```
 ng build
 ```
-> Copiar a pasta `/dist` para a pasta do servidor, com por exemplo a pasta `htdocs` do [XAMPP](https://www.apachefriends.org/pt_br/index.html)
+> Copiar a pasta `/dist` para a pasta do servidor, como por exemplo a pasta `htdocs` do [XAMPP](https://www.apachefriends.org/pt_br/index.html)
 
 #### Para executar e testar com o servidor embutido
 ```
 ng serve
 ```
+
+#### Depois que o servidor estiver iniciado
 > Acesse `http://localhost:4200/`
