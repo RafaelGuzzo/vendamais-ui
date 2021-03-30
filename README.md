@@ -3,8 +3,8 @@
 Projeto gerado com  [Angular CLI](https://github.com/angular/angular-cli) versão 10.0.0-next.0.
 
 #### Pré-requisitos
-[Node.js](https://nodejs.org/en/download/)
-[Angular 10](https://cli.angular.io/)
+-[Node.js](https://nodejs.org/en/download/)
+-[Angular 10](https://cli.angular.io/)
 
 #### Instalando angular com npm:
 
