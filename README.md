@@ -1,27 +1,33 @@
 # VendamaisUi
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.0-next.0.
+Projeto gerado com  [Angular CLI](https://github.com/angular/angular-cli) versão 10.0.0-next.0.
 
-## Development server
+#### Pré-requisitos
+[Node.js](https://nodejs.org/en/download/)
+[Angular 10](https://cli.angular.io/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+#### Instalando angular com npm:
 
-## Code scaffolding
+```
+npm i -g @angular/cli@10.0.0-next.0
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+#### Acessar a raiz do projeto e instalar as dependências
+```
+npm install
+```
+> se em algum momento aconteccer o erro: `The Angular Compiler requires TypeScript >=3.4.0 and <3.5.0 but 3.5.3 was found instead` executar o comando
+```
+npm i -D typescript@3.9.5
+```
+#### Gerar a build do projeto se quiser subir em um servidor web local
+```
+ng build
+```
+> Copiar a pasta `/dist` para a pasta do servidor, com por exemplo a pasta `htdocs` do [XAMPP](https://www.apachefriends.org/pt_br/index.html)
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+#### Para executar e testar com o servidor embutido
+```
+ng serve
+```
+> Acesse `http://localhost:4200/`
